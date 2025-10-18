@@ -102,9 +102,6 @@
         hideLED();
       }
     });
-
-    if (!input.value) {
-      input.value = 'Hello, world! Type your message and press Display';
-    }
   }
 })();
+
