@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b0b0f" />
+  <title>LED Message Scroller</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon-192.png" sizes="192x192">
+  <link rel="icon" href="./icon-512.png" sizes="512x512">
+
+  <!-- App styles (no external fonts/CDNs) -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <!-- Initial Input View -->
+  <div id="formView" class="wrap">
+    <div class="panel" role="form" aria-labelledby="title">
+      <h1 id="title" class="title">Full-Screen LED Message Scroller</h1>
+      <div class="row">
+        <input id="messageInput" type="text" maxlength="240" placeholder="Type your message…" autocomplete="off" />
+        <button id="displayBtn" type="button" aria-label="Display message">Display</button>
+      </div>
+      <div class="hint">Tip: Click “Display” to enter full-screen. Press <kbd>Esc</kbd> or click anywhere to exit.</div>
+    </div>
+  </div>
+
+  <!-- LED Screen View -->
+  <div id="ledScreen" class="led-screen" aria-hidden="true">
+    <div class="ticker-frame">
+      <div id="marquee" class="marquee">HELLO WORLD</div>
+    </div>
+    <div class="hud">
+      <div class="pill">Click anywhere to exit</div>
+      <div>Press Esc to exit full-screen</div>
+    </div>
+  </div>
+
+  <script src="./script.js"></script>
+  <script>
+    // Register Service Worker for offline support
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(() => {/* ignore */});
+      });
+    }
+  </script>
+</body>
+</html>
