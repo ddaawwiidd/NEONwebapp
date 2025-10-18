@@ -1,6 +1,6 @@
 {
-  "name": "LED Message Scroller",
-  "short_name": "LED Scroller",
+  "name": "NEON - LED Message Scroller",
+  "short_name": "NEON",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
@@ -12,3 +12,4 @@
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
+
