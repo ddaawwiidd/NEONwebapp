@@ -1,5 +1,5 @@
 // Bump this when you change anything important so clients get the update
-const CACHE = 'led-scroller-v8';
+const CACHE = 'led-scroller-v9';
 
 const CORE = [
   './',
@@ -78,3 +78,4 @@ self.addEventListener('fetch', (event) => {
     }
   })());
 });
+
