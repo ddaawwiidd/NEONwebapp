@@ -1,4 +1,4 @@
-const CACHE = 'led-scroller-v3';
+const CACHE = 'led-scroller-v4';
 
 // Core assets required to run offline
 const CORE = [
@@ -70,4 +70,5 @@ self.addEventListener('fetch', (event) => {
     }
   })());
 });
+
 
