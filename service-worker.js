@@ -15,6 +15,9 @@ const OPTIONAL = [
   './icon-512.png'
 ];
 
+// The stylesheet we want to pre-cache (DotGothic16)
+const GF_CSS_URL = 'https://fonts.googleapis.com/css2?family=DotGothic16&display=swap';
+
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE);
@@ -67,3 +70,4 @@ self.addEventListener('fetch', (event) => {
     }
   })());
 });
+
