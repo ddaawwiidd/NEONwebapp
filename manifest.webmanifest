@@ -6,9 +6,19 @@
   "display": "standalone",
   "background_color": "#050505",
   "theme_color": "#0b0b0f",
-  "description": "A full-screen LED message scroller that works offline.",
+  "description": "A full-screen LED message scroller that works offline and is shareable.",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
-  ]
+  ],
+  "share_target": {
+    "action": ".",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "msg",
+      "url": "url"
+    }
+  }
 }
