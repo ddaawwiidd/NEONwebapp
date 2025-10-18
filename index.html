@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>LED Message Scroller</title>
 
   <!-- PWA -->
-  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="manifest" href="./manifest.webmanifest" type="application/manifest+json">
   <link rel="icon" href="./icon-192.png" sizes="192x192">
   <link rel="icon" href="./icon-512.png" sizes="512x512">
 
-  <!-- App styles (no external fonts/CDNs) -->
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -40,10 +40,10 @@
 
   <script src="./script.js"></script>
   <script>
-    // Register Service Worker for offline support
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js').catch(() => {/* ignore */});
+        navigator.serviceWorker.register('./service-worker.js', { scope: './' })
+          .catch(err => console.error('SW registration failed:', err));
       });
     }
   </script>
