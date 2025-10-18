@@ -112,6 +112,7 @@ button:active { transform: translateY(1px); }
   will-change: transform; 
   text-transform: uppercase; 
   font-size: clamp(42px, 12vw, 180px); 
+  font-family: 'DotGothic16', monospace;
   line-height: 1; 
   letter-spacing: 0.12em; 
   color: var(--fg);
@@ -158,3 +159,4 @@ button:active { transform: translateY(1px); }
   :root { --speed-px-per-sec: 90; }
   .marquee { letter-spacing: 0.1em; }
 }
+
