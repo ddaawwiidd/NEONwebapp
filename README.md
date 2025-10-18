@@ -17,7 +17,5 @@ Type your message, hit **Display**, and watch it scroll across the screen — ev
   - `Esc` or click → Exit full-screen  
 - 💾 **Installable PWA** (Add to Home Screen on mobile or desktop)
 
----
 
-## 🧩 Project Structure
 
