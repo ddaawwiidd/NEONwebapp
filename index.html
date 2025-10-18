@@ -6,16 +6,16 @@
   <meta name="theme-color" content="#0b0b0f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <title>LED Message Scroller</title>
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 
   <!-- PWA -->
   <link rel="manifest" href="./manifest.webmanifest" type="application/manifest+json">
   <link rel="icon" href="./icon-192.png" sizes="192x192">
   <link rel="icon" href="./icon-512.png" sizes="512x512">
+
+  <!-- Google Fonts: DotGothic16 (SW will cache CSS+WOFF2 on first online visit) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="./styles.css" />
 </head>
@@ -24,10 +24,23 @@
   <div id="formView" class="wrap">
     <div class="panel" role="form" aria-labelledby="title">
       <h1 id="title" class="title">Full-Screen LED Message Scroller</h1>
+
       <div class="row">
         <input id="messageInput" type="text" maxlength="240" placeholder="Type your message…" autocomplete="off" />
         <button id="displayBtn" type="button" aria-label="Display message">Display</button>
       </div>
+
+      <!-- Actions: Share + Install -->
+      <div class="actions">
+        <button id="shareBtn" type="button" aria-label="Share message and app">Share</button>
+        <button id="installBtn" type="button" aria-label="Install app" hidden>Install</button>
+      </div>
+
+      <!-- iOS helper (hidden by default; shown if needed) -->
+      <div id="iosTip" class="ios-tip" hidden>
+        On iPhone/iPad: tap <span class="ios-share">Share</span> → <b>Add to Home Screen</b> to install.
+      </div>
+
       <div class="hint">Tip: Click “Display” to enter full-screen. Press <kbd>Esc</kbd> or click anywhere to exit.</div>
     </div>
   </div>
@@ -54,4 +67,3 @@
   </script>
 </body>
 </html>
-
