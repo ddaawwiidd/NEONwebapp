@@ -139,3 +139,30 @@ button:active { transform: translateY(1px); }
   :root { --speed-px-per-sec: 90; }
   .marquee { letter-spacing: 0.1em; }
 }
+
+/* Display mode dropdown */
+.mode-row {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #c9f9be;
+}
+.mode-row select {
+  background: #0f1e0d;
+  color: #d9ffd2;
+  border: 1px solid #1c2a18;
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+/* Static mode look (no scrolling) */
+.marquee.static {
+  animation: none !important;
+  letter-spacing: 0.08em;
+  padding-inline: 2vw; /* a touch tighter than scrolling */
+}
+
+
