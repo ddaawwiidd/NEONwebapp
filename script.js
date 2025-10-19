@@ -22,7 +22,7 @@
 
     // Focus input on load and ensure mode default is "scroll"
     window.addEventListener('load', () => input.focus());
-    if (!modeSelect.value) modeSelect.value = 'scroll';
+    if (!modeSelect.value) modeSelect.value = 'static';
 
     // Ensure input starts empty (placeholder only)
     input.value = '';
@@ -204,4 +204,5 @@
     }
   }
 })();
+
 
