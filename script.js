@@ -15,12 +15,30 @@
     const installBtn = document.getElementById('installBtn');
     const iosTip     = document.getElementById('iosTip');
 
+    // New: display mode dropdown
+    const modeSelect = document.getElementById('modeSelect'); // "scroll" | "static"
+
     if (!formView || !ledScreen || !marquee || !input || !btn) return;
+
+    // Focus input on load and ensure mode default is "scroll"
+    window.addEventListener('load', () => input.focus());
+    if (!modeSelect.value) modeSelect.value = 'scroll';
 
     // Ensure input starts empty (placeholder only)
     input.value = '';
     input.focus();
 
+    // ===== Mode helpers =====
+    function getCurrentMode() {
+      const v = (modeSelect.value || 'scroll').toLowerCase();
+      return (v === 'static' || v === 'scroll') ? v : 'scroll';
+    }
+
+    function setModeFromString(mode) {
+      const m = (mode || '').toLowerCase();
+      if (m === 'static' || m === 'scroll') modeSelect.value = m;
+    }
+    
     // ===== Fullscreen helpers =====
     async function enterFullscreen() {
       const el = document.documentElement;
@@ -40,15 +58,28 @@
       marquee.style.animation = `scroll ${durationSec}s linear infinite`;
     }
 
-    function showLED(msg) {
+    function showLED(msg, forcedMode) {
       const text = (msg || '').toString().trim().toUpperCase();
       if (!text) return;
+
+      const mode = (forcedMode || getCurrentMode()).toLowerCase();
+
       marquee.textContent = text;
+      marquee.classList.toggle('static', mode === 'static');
+
+      // Reset previous animation
       marquee.style.animation = 'none';
+
+      // Show screen
       ledScreen.classList.add('visible');
       ledScreen.setAttribute('aria-hidden', 'false');
       formView.style.display = 'none';
-      requestAnimationFrame(computeAndRunAnimation);
+
+      if (mode === 'scroll') {
+        requestAnimationFrame(computeAndRunAnimation);
+      } else {
+        marquee.style.removeProperty('--content-width');
+      }
     }
 
     function hideLED() {
@@ -59,9 +90,10 @@
       input.focus();
     }
 
-    // Recompute on resize while visible
+    // Recompute animation on resize if visible & scrolling
     window.addEventListener('resize', () => {
       if (!ledScreen.classList.contains('visible')) return;
+      if (marquee.classList.contains('static')) return; // no animation in static
       marquee.style.animation = 'none';
       requestAnimationFrame(computeAndRunAnimation);
     });
@@ -126,14 +158,25 @@
     }, 2500);
 
     // ===== URL params support: ?msg=TEXT&autoplay=1 =====
-    const params = new URLSearchParams(location.search);
-    const urlMsg = params.get('msg');
-    const auto = params.get('autoplay') === '1';
+    // ===== URL params (optional) =====
+    // Support ?msg=...&autoplay=1&mode=static|scroll
+    const params  = new URLSearchParams(location.search);
+    const urlMsg  = params.get('msg');
+    const auto    = params.get('autoplay') === '1';
+    const urlMode = (params.get('mode') || '').toLowerCase();
+
+    if (urlMode === 'static' || urlMode === 'scroll') {
+      setModeFromString(urlMode);
+    }
+
     if (urlMsg) {
       const text = decodeURIComponent(urlMsg).toString().trim();
       if (text) {
         input.value = text;
-        if (auto) enterFullscreen().then(() => showLED(text));
+        if (auto) {
+          const modeForAutoplay = (urlMode === 'static' || urlMode === 'scroll') ? urlMode : getCurrentMode();
+          enterFullscreen().then(() => showLED(text, modeForAutoplay));
+        }
       }
     }
 
@@ -161,3 +204,4 @@
     }
   }
 })();
+
