@@ -30,8 +30,24 @@
 
     // ===== Mode helpers =====
     function getCurrentMode() {
-      const v = (modeSelect.value || 'scroll').toLowerCase();
+      const modeSelect = document.getElementById('modeSelect');
+      const v = (modeSelect?.value || 'scroll').toLowerCase();
       return (v === 'static' || v === 'scroll') ? v : 'scroll';
+    }
+
+    function buildShareUrl() {
+      const input = document.getElementById('messageInput');
+      const raw = (input?.value || '').trim();
+      if (!raw) return null;
+    
+      const base = location.origin + location.pathname; // keeps /NEONwebapp/ path
+      const params = new URLSearchParams({
+        msg: raw,
+        autoplay: '1',
+        display: getCurrentMode()   // <-- key change: use "display"
+      });
+    
+      return `${base}?${params.toString()}`;
     }
 
     function setModeFromString(mode) {
@@ -181,29 +197,16 @@
     }
 
     // ===== Share button =====
-    if (shareBtn) {
-      const canNativeShare = !!navigator.share;
-      shareBtn.addEventListener('click', async () => {
-        const raw = (input.value || '').trim();
-        if (!raw) { input.focus(); return; }
-        const base = location.origin + location.pathname; // works on GitHub Pages subpath
-        const shareUrl = `${base}?msg=${encodeURIComponent(raw)}&autoplay=1`;
-
-        if (canNativeShare) {
-          try {
-            await navigator.share({ title: 'LED Message', text: 'Open this LED message (installable PWA):', url: shareUrl });
-          } catch {
-            try { await navigator.clipboard.writeText(shareUrl); alert('Link copied. Share it with your friend!'); }
-            catch { prompt('Copy this link:', shareUrl); }
-          }
-        } else {
-          try { await navigator.clipboard.writeText(shareUrl); alert('Link copied. Share it with your friend!'); }
-          catch { prompt('Copy this link:', shareUrl); }
-        }
-      });
-    }
+   if (shareBtn) {
+    shareBtn.addEventListener('click', async () => {
+      const url = buildShareUrl();
+      if (!url) return;
+      await shareOrCopy(url);
+    });
+  }
   }
 })();
+
 
 
 
