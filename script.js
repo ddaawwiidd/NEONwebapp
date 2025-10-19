@@ -163,7 +163,7 @@
     const params  = new URLSearchParams(location.search);
     const urlMsg  = params.get('msg');
     const auto    = params.get('autoplay') === '1';
-    const urlMode = (params.get('mode') || '').toLowerCase();
+    const urlMode = (params.get('mode') || params.get('display') || '').toLowerCase();
 
     if (urlMode === 'static' || urlMode === 'scroll') {
       setModeFromString(urlMode);
@@ -204,5 +204,6 @@
     }
   }
 })();
+
 
 
