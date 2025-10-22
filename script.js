@@ -17,6 +17,7 @@
     const installBtn = document.getElementById('installBtn');
     const iosTip     = document.getElementById('iosTip');
     const modeSelect = document.getElementById('modeSelect'); // "scroll" | "static"
+    const colorSelect = document.getElementById('colorSelect');
 
     if (!formView || !ledScreen || !marquee || !input || !btn || !modeSelect) return;
 
@@ -27,6 +28,53 @@
 
     // Default mode: "scroll"
     if (!modeSelect.value) modeSelect.value = 'scroll';
+
+    // ===== Color Theme =====
+    const COLOR_KEY = 'neon.color';
+    const THEMES = {
+      default: {
+        fg:    '#aaff66',
+        glow1: 'rgba(170, 255, 102, 0.70)',
+        glow2: 'rgba(170, 255, 102, 0.45)',
+        glow3: 'rgba(170, 255, 102, 0.25)'
+      },
+      blue: {
+        fg:    '#34edf3',
+        glow1: 'rgba(52, 237, 243, 0.70)',
+        glow2: 'rgba(52, 237, 243, 0.45)',
+        glow3: 'rgba(52, 237, 243, 0.25)'
+      },
+      pink: {
+        fg:    '#f715ab',
+        glow1: 'rgba(247, 21, 171, 0.70)',
+        glow2: 'rgba(247, 21, 171, 0.45)',
+        glow3: 'rgba(247, 21, 171, 0.25)'
+      },
+      white: {
+        fg:    '#ffffff',
+        glow1: 'rgba(255, 255, 255, 0.70)',
+        glow2: 'rgba(255, 255, 255, 0.45)',
+        glow3: 'rgba(255, 255, 255, 0.25)'
+      }
+    };
+
+    function applyTheme(key) {
+      const k = THEMES[key] ? key : 'default';
+      const t = THEMES[k];
+      const root = document.documentElement;
+      root.style.setProperty('--fg', t.fg);
+      root.style.setProperty('--glow-1', t.glow1);
+      root.style.setProperty('--glow-2', t.glow2);
+      root.style.setProperty('--glow-3', t.glow3);
+      try { localStorage.setItem(COLOR_KEY, k); } catch {}
+    }
+
+    // Restore color from localStorage (or default) and reflect in dropdown
+    let savedColor = 'default';
+    try { savedColor = localStorage.getItem(COLOR_KEY) || 'default'; } catch {}
+    colorSelect.value = THEMES[savedColor] ? savedColor : 'default';
+    applyTheme(colorSelect.value);
+
 
     // ===== Utils =====
     const isiOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent);
@@ -83,6 +131,27 @@
           document.body.removeChild(ta);
         }
       }
+    }
+
+    // ===== Event listeners =====
+    if (modeSelect) {
+      modeSelect.addEventListener('change', () => {
+        // no extra work; showLED reads current mode
+      });
+    }
+
+    if (colorSelect) {
+      colorSelect.addEventListener('change', () => {
+        applyTheme(colorSelect.value);
+      });
+    }
+
+    if (btn) {
+      btn.addEventListener('click', () => {
+        const raw = (input.value || '').trim();
+        if (!raw) return;
+        showLED(raw);
+      });
     }
 
     // ===== Fullscreen helpers =====
