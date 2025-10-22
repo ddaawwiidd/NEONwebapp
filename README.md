@@ -1,4 +1,4 @@
-# 💡 LED Message Scroller (Offline PWA)
+# 💡 Neon - LED Message Scroller (Offline PWA)
 
 A minimalist **Progressive Web App** that turns your screen into a glowing, scrolling LED message board.  
 Now with **one-tap sharing** and an **Install** button that appears only when the app isn’t installed.
