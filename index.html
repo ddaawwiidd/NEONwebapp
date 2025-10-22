@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b0b0f" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>LED Message Scroller</title>
+  <title>Neon - LED Message Scroller</title>
 
   <!-- PWA -->
   <link rel="manifest" href="./manifest.webmanifest" type="application/manifest+json">
@@ -30,6 +30,14 @@
         <button id="displayBtn" type="button" aria-label="Display message">Display</button>
       </div>
 
+      <!-- Display mode -->
+      <div class="mode-row">
+        <label for="modeSelect">Display mode:</label>
+        <select id="modeSelect" aria-label="Choose display mode">
+          <option value="scroll">Scrolling</option>
+          <option value="static" selected>Static</option>
+        </select>
+      </div>
      
       <!-- Actions: Share + Install -->
       <div class="actions">
@@ -68,6 +76,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
