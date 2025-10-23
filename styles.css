@@ -190,3 +190,27 @@ button:hover {
   letter-spacing: 0.08em;
   padding-inline: 2vw; /* a touch tighter than scrolling */
 }
+
+/* ——— Invert message colors ONLY (doesn't affect the UI) ——— */
+.led-screen.led-invert {
+  /* use current theme foreground as the LED background */
+  background: var(--fg) !important;
+}
+
+/* Dark message text over the bright background; remove neon halo for contrast */
+.led-screen.led-invert #marquee,
+.led-screen.led-invert .marquee {
+  color: #0a0a0a !important;
+  text-shadow: none !important;
+}
+
+/* Optional: keep static mode text crisp as well */
+.led-screen.led-invert .marquee.static {
+  color: #0a0a0a !important;
+  text-shadow: none !important;
+}
+
+/* Optional tiny polish for the checkbox (can be removed if you have a UI system) */
+.invert-toggle input[type="checkbox"] {
+  transform: translateY(1px);
+}
