@@ -190,3 +190,80 @@ button:hover {
   letter-spacing: 0.08em;
   padding-inline: 2vw; /* a touch tighter than scrolling */
 }
+
+/* ——— Invert message colors ONLY (doesn't affect the UI) ——— */
+.led-screen.led-invert {
+  /* use current theme foreground as the LED background */
+  background: var(--fg) !important;
+}
+
+/* Dark message text over the bright background; remove neon halo for contrast */
+.led-screen.led-invert #marquee,
+.led-screen.led-invert .marquee {
+  color: #0a0a0a !important;
+   text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: keep static mode text crisp as well */
+.led-screen.led-invert .marquee.static {
+  color: #0a0a0a !important;
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional tiny polish for the checkbox (can be removed if you have a UI system) */
+.invert-toggle input[type="checkbox"] {
+  transform: translateY(1px);
+}
+
+/* Mode row becomes a wrapping flex container */
+.mode-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;              /* row gap / column gap */
+  align-items: center;
+  justify-content: center;
+  color: var(--fg);
+}
+
+/* Each control (label + input) moves as a unit */
+.mode-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  /* Grow when there’s room, wrap when there isn’t */
+  flex: 1 1 260px;             /* basis ~260px; adjust to taste */
+  min-width: 200px;            /* prevents over-squishing */
+}
+
+/* Make selects behave well inside the field */
+.mode-field select {
+  flex: 0 1 auto;
+  min-width: 160px;            /* keeps select readable */
+  max-width: 100%;
+}
+
+/* Keep the checkbox + label aligned */
+.mode-field .invert-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Small screens: stack one-per-row and let inputs stretch */
+@media (max-width: 480px) {
+  .mode-field {
+    flex-basis: 100%;
+    min-width: 0;
+    justify-content: center;   /* center each row */
+  }
+  .mode-field select {
+    width: 100%;
+    min-width: 0;
+  }
+}

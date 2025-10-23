@@ -18,6 +18,7 @@
     const iosTip     = document.getElementById('iosTip');
     const modeSelect = document.getElementById('modeSelect'); // "scroll" | "static"
     const colorSelect = document.getElementById('colorSelect');
+    const invertToggle = document.getElementById('invertToggle');
 
     if (!formView || !ledScreen || !marquee || !input || !btn || !modeSelect) return;
 
@@ -74,6 +75,25 @@
     try { savedColor = localStorage.getItem(COLOR_KEY) || 'default'; } catch {}
     colorSelect.value = THEMES[savedColor] ? savedColor : 'default';
     applyTheme(colorSelect.value);
+
+    // ——— Invert persistence ———
+    const INVERT_KEY = 'neon.invert';
+
+    function applyInvert(isInverted) {
+      ledScreen.classList.toggle('led-invert', !!isInverted);
+      try { localStorage.setItem(INVERT_KEY, isInverted ? '1' : '0'); } catch {}
+    }
+
+    // Restore saved invert state
+    let savedInvert = false;
+    try { savedInvert = localStorage.getItem(INVERT_KEY) === '1'; } catch {}
+    if (invertToggle) {
+      invertToggle.checked = savedInvert;
+      applyInvert(savedInvert);
+      invertToggle.addEventListener('change', () => {
+        applyInvert(invertToggle.checked);
+      });
+    }
 
 
     // ===== Utils =====
