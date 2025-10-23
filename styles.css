@@ -201,13 +201,19 @@ button:hover {
 .led-screen.led-invert #marquee,
 .led-screen.led-invert .marquee {
   color: #0a0a0a !important;
-  text-shadow: none !important;
+   text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Optional: keep static mode text crisp as well */
 .led-screen.led-invert .marquee.static {
   color: #0a0a0a !important;
-  text-shadow: none !important;
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(0, 0, 0, 0.25),
+    0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Optional tiny polish for the checkbox (can be removed if you have a UI system) */
